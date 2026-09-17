@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="mr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!</title>
+  
+  <!-- IBM Plex Sans & IBM Plex Sans Devanagari Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --font-main: 'IBM Plex Sans Devanagari', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #f0f4ff 0%, #f8fafc 100%);
+      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-tag: #e0e7ff;
+      --tag-color: #3730a3;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --text-highlight: #0f172a;
+      --accent: #4f46e5;
+      --accent-glow: rgba(79, 70, 229, 0.18);
+      --border-color: rgba(226, 232, 240, 0.9);
+      --quote-bg: #eef2ff;
+      --quote-border: #6366f1;
+      --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.03);
+    }
+
+    [data-theme="dark"] {
+      --bg-gradient: radial-gradient(circle at 50% 0%, #111827 0%, #090d16 100%);
+      --bg-card: rgba(23, 30, 48, 0.85);
+      --bg-tag: rgba(99, 102, 241, 0.2);
+      --tag-color: #a5b4fc;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-highlight: #ffffff;
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.25);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --quote-bg: rgba(99, 102, 241, 0.1);
+      --quote-border: #818cf8;
+      --shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.85;
+      font-size: 1.125rem;
+      transition: background 0.3s ease, color 0.3s ease;
+      
+      /* शब्द मधून न तुटण्यासाठी */
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      hyphens: none;
+      -webkit-hyphens: none;
+      -ms-hyphens: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* फ्लोटिंग टॉप बार */
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-icon {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      padding: 0.55rem 1rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* मुख्य कार्ड */
+    article.main-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      article.main-card {
+        padding: 2rem 1.25rem;
+        border-radius: 18px;
+      }
+      body {
+        font-size: 1.05rem;
+        line-height: 1.8;
+      }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      background: var(--bg-tag);
+      color: var(--tag-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+    }
+
+    h1.article-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-highlight);
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      h1.article-title {
+        font-size: 1.7rem;
+      }
+    }
+
+    p.subtitle {
+      font-size: 1.15rem;
+      color: var(--accent);
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    /* वेक्टर इलस्ट्रेशन */
+    .image-container {
+      margin: 2.5rem 0;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: radial-gradient(circle at center, rgba(79, 70, 229, 0.1) 0%, transparent 80%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .image-container svg {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      filter: drop-shadow(0 8px 16px var(--accent-glow));
+    }
+
+    .image-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+
+    /* मजकूर लेआउट */
+    .content-body p {
+      margin-bottom: 1.4rem;
+      text-align: justify;
+    }
+
+    strong, b {
+      color: var(--text-highlight);
+      font-weight: 600;
+    }
+
+    em, i {
+      color: var(--accent);
+    }
+
+    .divider {
+      text-align: center;
+      margin: 2.5rem 0;
+      font-size: 1.2rem;
+      color: var(--accent);
+      opacity: 0.6;
+      letter-spacing: 0.6rem;
+    }
+
+    /* सुविचार व अभंग बॉक्स */
+    .quote-box {
+      background: var(--quote-bg);
+      border-left: 4px solid var(--quote-border);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin: 2.2rem 0;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-highlight);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+    }
+
+    footer.article-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .date-badge {
+      font-family: var(--font-main);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1e293b;
+      color: #fff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- टॉप ॲक्शन बार (थीम व शेअर) -->
+    <div class="top-bar">
+      <button class="btn-icon" id="shareBtn" aria-label="शेअर करा">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8m-4-6-4-4-4 4m4-4v13"/></svg>
+        <span>शेअर करा</span>
+      </button>
+
+      <button class="btn-icon" id="themeToggle" aria-label="थीम बदला">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">डार्क मोड</span>
+      </button>
+    </div>
+
+    <!-- मुख्य लेख कार्ड -->
+    <article class="main-card">
+      <header>
+        <div class="tag-badge">विज्ञान आणि तत्त्वज्ञान</div>
+        <h1 class="article-title">क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!</h1>
+        <p class="subtitle">..आणि मग प्रकर्षाने जाणवत राहते ‘अनिश्चिततेचे तत्त्व’; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.</p>
+      </header>
+
+      <!-- डॉक्युमेंटमधील [image] चे वेक्टर स्वरूपातील रूपांतर -->
+      <div class="image-container">
+        <svg viewBox="0 0 600 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.9"/>
+            </linearGradient>
+            <radialGradient id="particleGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#a855f7" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- क्वांटम वेव्हज -->
+          <path d="M20 160 Q 75 100, 150 160 T 300 160 T 450 160 T 580 160" stroke="url(#grad1)" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.6"/>
+          <path d="M20 160 Q 75 220, 150 160 T 300 160 T 450 160 T 580 160" stroke="url(#grad1)" stroke-width="1.5" opacity="0.4"/>
+
+          <!-- एन्टँगलमेंट लूप्स -->
+          <circle cx="200" cy="160" r="70" stroke="#6366f1" stroke-width="1.5" opacity="0.25" stroke-dasharray="4 4"/>
+          <circle cx="400" cy="160" r="70" stroke="#06b6d4" stroke-width="1.5" opacity="0.25" stroke-dasharray="4 4"/>
+          
+          <!-- जोडणारा रहस्यमय धागा (Entangled Bridge) -->
+          <path d="M200 160 C 260 90, 340 230, 400 160" stroke="#818cf8" stroke-width="3" stroke-linecap="round"/>
+
+          <!-- कण अ (Particle A) -->
+          <circle cx="200" cy="160" r="30" fill="url(#particleGlow)"/>
+          <circle cx="200" cy="160" r="14" fill="#6366f1"/>
+          <circle cx="195" cy="155" r="4" fill="#ffffff"/>
+
+          <!-- कण ब (Particle B) -->
+          <circle cx="400" cy="160" r="30" fill="url(#particleGlow)"/>
+          <circle cx="400" cy="160" r="14" fill="#06b6d4"/>
+          <circle cx="395" cy="155" r="4" fill="#ffffff"/>
+
+          <!-- ऑर्बिट्स व इलेक्ट्रॉन डॉट्स -->
+          <ellipse cx="200" cy="160" rx="42" ry="16" stroke="#c084fc" stroke-width="1.5" transform="rotate(-30 200 160)" opacity="0.7"/>
+          <circle cx="236" cy="142" r="3.5" fill="#f43f5e"/>
+          
+          <ellipse cx="400" cy="160" rx="42" ry="16" stroke="#38bdf8" stroke-width="1.5" transform="rotate(30 400 160)" opacity="0.7"/>
+          <circle cx="436" cy="178" r="3.5" fill="#f43f5e"/>
+
+          <text x="200" y="225" fill="currentColor" opacity="0.8" font-size="13" text-anchor="middle" font-family="sans-serif">पार्टिकल A</text>
+          <text x="400" y="225" fill="currentColor" opacity="0.8" font-size="13" text-anchor="middle" font-family="sans-serif">पार्टिकल B</text>
+          <text x="300" y="125" fill="currentColor" opacity="0.75" font-size="12" text-anchor="middle" font-style="italic" font-family="sans-serif">Spooky action at a distance</text>
+        </svg>
+        <div class="image-caption">क्वांटम एन्टँगलमेंट: अंतरापलीकडचा अदृश्य परस्परसंबंध</div>
+      </div>
+
+      <!-- लेखाचा मुख्य मजकूर -->
+      <div class="content-body">
+        <p>
+          ‘विश्व’ म्हणले आपल्या डोळ्यांसमोर अगदी लहानात लहान धुलिकणापासून ते सभोवताल व्यापून असलेल्या चराचराची प्रतिमा उभी राहते. इतकेच नव्हे, तर अशक्य अंतरावर असलेले ग्रह, तारे आणि अथांग आकाशगंगाही आपल्या मनःचक्षूंसमोर तरळू लागतात. हे सर्व आहे 'दिसणारे विश्व' म्हणजेच <em>‘Observable Universe’</em>.
+        </p>
+
+        <p>
+          या <em>Observable Universe</em> मधे असलेली नियमितता माणसाच्या लक्षात येऊ लागल्यावर ती सूत्रबद्ध करण्याच्या प्रयत्नातून आधुनिक भौतिकशास्त्राची प्रगती होत गेली. सर आयझॅक न्यूटन यांनी या संदर्भात महत्त्वाचे सिद्धांत मांडले आणि म्हणून या ‘दिसणाऱ्या विश्वाचा’ अभ्यास करणाऱ्या भौतिकशास्त्राला ‘न्यूटोनियन फिजिक्स’ असे संबोधले जाऊ लागले.
+        </p>
+
+        <p>
+          अगदी ढोबळ मानाने सांगायचे तर विश्वातील प्रत्येक घटकाचे एका वेळी एकाच ठिकाणी असणारे अस्तित्व, त्याचे इतर घटकांशी असलेले नाते आणि या सगळ्याला एका गोलाकार स्थितीत गुंफून ठेवणारे गुरुत्वाकर्षण हा ‘न्यूटोनियन फिजिक्स’चा गाभा आहे असे म्हणता येईल. आपली सूर्यमाला हे याचे एक उत्तम उदाहरण म्हणून सांगता येते.
+        </p>
+
+        <p>
+          मानवाला चराचरातील सर्वात सूक्ष्म कणाबद्दल देखील प्रचंड उत्सुकता वाटत आलेली आहे. त्या कुतूहलापोटी झालेल्या अभ्यासातून विश्वातील सर्वात लहान घटक म्हणून 'अणू'ची संकल्पना उदयास आली. या ‘मूलभूत कणा’च्या रचनेचा सुरुवातीचा आराखडा ‘न्यूटोनियन फिजिक्स’च्या सिद्धांतांनुसार मांडला गेला; ज्यामध्ये सूर्यमालेप्रमाणे केंद्रस्थानी प्रोटॉन आणि न्यूट्रॉन व त्यांच्याभोवती ठराविक कक्षांमध्ये फिरणारे इलेक्ट्रॉन्स अशी अणूच्या रचनेची कल्पना केली गेली.
+        </p>
+
+        <p>
+          परंतु वैज्ञानिक प्रगतीच्या ओघात हे स्पष्ट होऊ लागले की आण्विक स्तरावरील या चिमुकल्या विश्वाचे नियम ‘न्यूटोनियन फिजिक्स’पेक्षा पूर्णपणे भिन्न आहेत. तेथील ‘सबअटॉमिक पार्टिकल्स’ काही वेगळेच वागतात. एकाच वेळी ते कणांसारखेही असतात आणि तरंगांसारखेही! सगळाच ‘लहरी’ कारभार आहे म्हणाना!
+        </p>
+
+        <p>
+          क्वांटम फिजिक्स <em>(क्वांटम मेकॅनिक्स)</em> म्हणून ओळखले जाणारे हे शास्त्र याच ‘सबअटॉमिक पार्टिकल्स’च्या विश्वाचा आणि त्यांच्या गूढ हालचालींचा वेध घेते.
+        </p>
+
+        <p>
+          या शास्त्रानुसार जेव्हा ‘सबअटॉमिक पार्टिकल्स’चे निरीक्षण केले जात असते त्यावेळची त्यांची वर्तणूक आणि निरीक्षण केले जात नसतानाचे वागणे यामध्ये अक्षरशः जमीन-अस्मानाचा फरक असतो! याला क्वांटम फिजिक्समध्ये <strong>‘ऑब्झर्व्हर इफेक्ट’</strong> म्हणून ओळखले जाते.
+        </p>
+
+        <p>
+          आता पार्टिकल अस्तित्वात तर असतो परंतु मोजला जातो तेव्हां एक वागतो आणि मोजला जात नसताना काही वेगळाच; हे प्रकरण ‘न्यूटोनियन फिजिक्स’मधे कुठेच बसत नाही. परंतु आण्विक विश्वात ते तसे असते हे प्रयोगाने जाणवते हे ही खरे; म्हणून मग पार्टिकल जेंव्हा <em>‘under observation नसतो त्या वेळेस कोणत्याही स्थितीत असू शकतो’</em> ही त्याची वैशिष्ट्यपूर्ण क्षमता म्हणजे <strong>‘सुपरपोझिशन’!</strong>
+        </p>
+
+        <p>
+          क्वांटम-भौतिकी प्रयोगांतून असेही जाणवले आहे की दोन विविक्षित सबअटॉमिक पार्टिकल्समधील अंतर कितीही अथांग असले तरी एकाच्या स्थितीत होणारा बदल दुसऱ्यावर लगेचच प्रभाव पाडतो. हा आगळावेगळा परस्परसंबंध म्हणजे <strong>‘एन्टँगलमेंट’!</strong> डॉ. अल्बर्ट आईन्स्टाइन यांनी उपरोधिकपणे याचे वर्णन <em>“दूरवरून घडणारी रहस्यमय कृती” (Spooky action at a distance)</em> असे केले होते.
+        </p>
+
+        <p>
+          याशिवाय आपण कोणत्याही पार्टिकलची अचूक स्थिती आणि वेग एकाच वेळी मोजू शकत नाही. दोन्हीपैकी कोणतीही एक गोष्ट जितकी अचूकतेने मोजण्याचा प्रयत्न करू, तितकीच दुसरी गोष्ट जास्त अनिश्चित बनत जाते. याला <strong>‘हायझेनबर्गचे अनिश्चिततेचे तत्त्व’</strong> म्हणतात.
+        </p>
+
+        <div class="divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+        <p>
+          तुम्ही, मी आणि आपण सर्व नक्की कोण आहोत? सजीव आणि निर्जीव यांमध्ये नेमका काय फरक आहे? भावना, चेतना, पुनरुत्पादन आणि अनुभवांतून शिकण्याची सजीवांची क्षमता कोठून येते? ही कोडी सोडवणे जरी अवघड असले, तरी एक बाब मात्र सूर्यप्रकाशाइतकी स्वच्छ आहे - आपण सर्व आणि हे अथांग विश्व विविध मूलद्रव्यांच्या अब्जावधी ‘सबअटॉमिक पार्टिकल्स’च्या एका विलक्षण आणि गुंतागुंतीच्या पण वेगवेगळ्या रचनांच्या स्वरूपात एकत्र येण्याने साकारले गेले आहे!
+        </p>
+
+        <p>
+          हे वास्तव असले तरीही दैनंदिन व्यवहारातील आपल्या अस्तित्वाला मात्र ‘न्यूटोनियन फिजिक्स’चेच नियम लागू पडताना दिसतात. आपण सर्व प्रत्यक्षात सबअटॉमिक पार्टिकल्सद्वारेच बनलेलो असलो, तरी आपल्या रोजच्या वर्तनामध्ये ‘सुपरपोझिशन’ किंवा ‘एन्टँगलमेंट’ अनुभवायला मिळत नाहीत!
+        </p>
+
+        <div class="divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+        <p>
+          परंतु एका वेगळ्या दृष्टिकोनातून जेव्हा आपण <em>'क्वांटम मेकॅनिक्स' आणि 'मानसिक स्वास्थ्यासाठी केले जाणारे सजग प्रयत्न'</em> यांचा एकत्रित विचार करतो, तेव्हा त्यांच्यातील काही आगळ्यावेगळ्या, ‘न्यूटोनियन फिजिक्स’नुसार अतर्क्य वाटणाऱ्या संबंधांची नक्कीच अनुभूती येते.
+        </p>
+
+        <p>
+          आता हेच पहा ना, जेव्हां आपण वर्तमानातील काही गोष्टींकडे जाणीवपूर्वक लक्ष देतो त्याच पुढे आपल्या अनुभवांचा पाया ठरतात. म्हणजेच, आयुष्यातील सकारात्मक बाबींचे ‘जागरूक निरीक्षण’ केल्यास आपल्या मानसिक स्थितीत आमूलाग्र बदल होऊ शकतो. उदाहरणार्थ, ‘जे आहे त्याप्रति’ कृतज्ञ राहण्याची वृत्ती जोपासली तर आपल्या विचारात आणि कृतींमध्ये कमालीची सकारात्मकता निर्माण होते. अनुभवास येते.
+        </p>
+
+        <p>
+          हा तर <strong>‘ऑब्झर्व्हर इफेक्ट’</strong> आहे!
+        </p>
+
+        <p>
+          मानवी भावना आणि नातेसंबंध हे फक्त <em>cause & effect</em> पुरते मर्यादित नसून ते जणू एका अदृश्य शृंखलेने जोडलेले असावेत याचीही आपल्याला वरचेवर प्रचिती येत असते. दैनंदिन जीवनात काही व्यक्तींचे फक्त प्रत्यक्षातच नव्हे तर मनात देखील नुसते ‘असणे’ हे भवतालची ऊर्जा वाढवते, तर क्वचित प्रसंगी एखाद्याच्या केवळ ‘येण्याने’ सर्वत्र निरुत्साह पसरतो!
+        </p>
+
+        <p>
+          सुहृदाने पाठीवर दिलेली हलकीशी आश्वासक थाप किंवा एखादा आश्वस्त करणारा फोन कॉल देखील ‘आल इज वेल’ म्हणत शब्दांच्या पलीकडे जाऊन नाते दृढ करतो, मनाला उभारी देतो; लहानपणी ऐकलेल्या <em>‘आलामंतर कोलामंतर . . . . ’</em> सारखे काहीतरी होते आणि समस्या क्षणात <strong>अनटॅंगल</strong> होतात!!
+        </p>
+
+        <p>
+          सर्वांना कधी ना कधी आलेले यासारखे अनुभव म्हणजे दुसरे तिसरे काही नसून त्या त्या वेळेस होणाऱ्या वेगवेगळ्या <strong>‘एन्टँगलमेंट्स’</strong> असतात!
+        </p>
+
+        <p>
+          विचारांत लवचिकता ठेवून वेगवेगळ्या परस्पर विरोधी भावनांचा एकाच वेळी स्वीकार करणे, म्हणजेच मानसिक <strong>‘सुपरपोझिशनमधे’</strong> राहण्याचा जाणीवपूर्वक प्रयत्न करत राहिले की एकांगी विचार न करता एकाच वेळेस अनेक दृष्टिकोन स्वीकारण्याची क्षमता आपोआप अंगी रुजते. ही सवय व्यक्तीला मानसिकदृष्ट्या अधिक सक्षम आणि खंबीर बनवते.
+        </p>
+
+        <p>
+          जेव्हा आपण अहंकार व दुराभिमानाचा त्याग करून जीवनात स्वाभाविकपणे येणाऱ्या चढ-उतारांचा मोकळेपणाने स्वीकार करतो तेव्हा आपल्यातील सृजनशीलता आणि संकटांवर मात करण्याची आंतरिक शक्ती कमालीची विकसित होते. आयुष्यात येणाऱ्या चढ-उतारांची ही अपरिहार्य अनिश्चितता मान्य करणे म्हणजेच वेर्नर हायझेनबर्ग यांचे म्हणणे ऐकून <strong>‘अनिश्चिततेच्या तत्त्वा’</strong>चा स्वीकार करणे!
+        </p>
+
+        <div class="divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+        <p>
+          तुम्ही, मी, आपण सर्व आणि हे ब्रह्मांड अब्जावधी सबअटॉमिक पार्टिकल्सच्या एकाच वेळेस सूत्रबद्ध पण वेगवेगळ्या रचनांमध्ये एकत्र येण्याने बनले आहे हे खरे आहे. आपल्याला जे दिसते त्याचे ‘न्यूटोनियन फिजिक्स’चे नियम लावून वर्णनही करता येते. पण अंतरंगात असलेले ते सबअटॉमिक पार्टिकल्स! ते त्यांचा ‘लहरीपणा’ टिकवून आहेतच.
+        </p>
+
+        <p>
+          मनाच्या अंतरंगात खोल कुठेतरी ते त्यांच्या ‘सुपरपोझिशन्स’मधे फिरत असतात. त्यांच्यात होणाऱ्या ‘एन्टँगलमेंट्स’ भावनांच्या हिंदोळ्यांना जन्म देत राहतात आणि मग प्रकर्षाने जाणवत राहते ते म्हणजे अनिश्चिततेचे तत्त्व; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.
+        </p>
+
+        <p>
+          अशा वेळेस विचार ‘अनटॅंगल’ करून मनःशांती मिळवायला कामी येतो मनोमन कृतज्ञ राहण्याचा <strong>‘ऑब्झर्व्हर इफेक्ट’!!</strong>
+        </p>
+
+        <div class="quote-box">
+          <em>तुका म्हणे उगी रहावे, जे जे होईल ते पहावे, चित्ती असो द्यावे; समाधान!</em>
+        </div>
+      </div>
+
+      <!-- तळटीप / फुटर -->
+      <footer class="article-footer">
+        <span class="date-badge">~ २०२६०७३०</span>
+        <span>क्वांटम भौतिकी आणि मानसशास्त्र चिंतन</span>
+      </footer>
+    </article>
+  </div>
+
+  <div class="toast" id="toast">लिंक कॉपी झाली!</div>
+
+  <script>
+    // डार्क / लाइट थीम टॉगल
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const html = document.documentElement;
+
+    // युझरची सिस्टीम थीम तपासणे
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('site-theme') || (prefersDark ? 'dark' : 'light');
+
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('site-theme', theme);
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'लाइट मोड';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'डार्क मोड';
+      }
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    // सोशल शेअर आणि लिंक कॉपी फंक्शनॅलिटी
+    const shareBtn = document.getElementById('shareBtn');
+    const toast = document.getElementById('toast');
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: 'क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!',
+        text: '..आणि मग प्रकर्षाने जाणवत राहते ‘अनिश्चिततेचे तत्त्व’; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          // युझरने कॅन्सल केल्यास काही न करणे
+        }
+      } else {
+        // Fallback: क्लिपबोर्डवर लिंक कॉपी करणे
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          showToast('वेबपेज लिंक कॉपी झाली!');
+        }).catch(() => {
+          showToast('शेअर लिंक तयार करण्यात अडचण आली.');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
