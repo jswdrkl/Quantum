@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!</title>
   
-  <!-- IBM Plex Sans & IBM Plex Sans Devanagari Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -21,15 +19,13 @@
             sans: ['"IBM Plex Sans Devanagari"', '"IBM Plex Sans"', 'sans-serif'],
           },
           colors: {
-            quantum: {
-              teal: '#0d9488',
-              cyan: '#06b6d4',
-              violet: '#8b5cf6',
-              amber: '#f59e0b',
-              deep: '#070b14',
-              surface: '#0f172a',
-              cardDark: 'rgba(30, 41, 59, 0.75)',
-              cardLight: 'rgba(255, 255, 255, 0.88)'
+            cosmic: {
+              50: '#f5f7ff',
+              100: '#ebf0fe',
+              500: '#6366f1',
+              600: '#4f46e5',
+              900: '#0c0f1d',
+              950: '#070913',
             }
           }
         }
@@ -38,457 +34,405 @@
   </script>
 
   <style>
-    * {
-      font-family: "IBM Plex Sans Devanagari", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    /* Strict Devanagari typography rules to prevent broken conjuncts and chopped words */
-    .marathi-body {
-      text-align: justify;
-      text-justify: inter-word;
+    body {
+      font-family: 'IBM Plex Sans Devanagari', 'IBM Plex Sans', sans-serif;
       word-break: normal;
       overflow-wrap: break-word;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .text-justify-marathi {
+      text-align: justify;
+      text-justify: inter-word;
       hyphens: none;
       -webkit-hyphens: none;
-      line-height: 1.9;
     }
 
-    @media (max-width: 640px) {
-      .marathi-body {
-        text-align: justify;
-        line-height: 1.85;
-      }
+    /* Subtle quantum particle animations */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.45; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.08); }
     }
-
-    /* Keyframe animations for the Quantum SVG Illustration */
-    @keyframes orbitClockwise {
+    @keyframes spinSlow {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-
-    @keyframes orbitCounterClockwise {
+    @keyframes spinReverse {
       from { transform: rotate(360deg); }
       to { transform: rotate(0deg); }
     }
-
-    @keyframes pulseGaze {
-      0%, 100% { opacity: 0.35; transform: scale(0.96); }
-      50% { opacity: 0.85; transform: scale(1.04); }
+    @keyframes waveFloat {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: 40; }
+    }
+    @keyframes entanglementPulse {
+      0%, 100% { stroke-opacity: 0.3; stroke-width: 1.5; }
+      50% { stroke-opacity: 0.9; stroke-width: 3.5; }
     }
 
-    @keyframes waveTravel {
-      0% { stroke-dashoffset: 0; }
-      100% { stroke-dashoffset: 140; }
-    }
-
-    @keyframes floatParticle1 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(14px, -18px); }
-    }
-
-    @keyframes floatParticle2 {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-16px, 14px); }
-    }
-
-    .animate-orbit-cw {
-      transform-origin: 300px 180px;
-      animation: orbitClockwise 22s linear infinite;
-    }
-
-    .animate-orbit-ccw {
-      transform-origin: 300px 180px;
-      animation: orbitCounterClockwise 28s linear infinite;
-    }
-
-    .animate-pulse-gaze {
-      transform-origin: 300px 180px;
-      animation: pulseGaze 5s ease-in-out infinite;
-    }
-
-    .animate-wave-flow {
-      stroke-dasharray: 10 14;
-      animation: waveTravel 6s linear infinite;
-    }
-
-    .animate-float-1 {
-      animation: floatParticle1 6s ease-in-out infinite;
-    }
-
-    .animate-float-2 {
-      animation: floatParticle2 7s ease-in-out infinite;
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 7px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(100, 116, 139, 0.4);
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(100, 116, 139, 0.7);
-    }
+    .anim-pulse-glow { animation: pulseGlow 4s ease-in-out infinite; }
+    .anim-spin-slow { animation: spinSlow 28s linear infinite; transform-origin: center; }
+    .anim-spin-reverse { animation: spinReverse 22s linear infinite; transform-origin: center; }
+    .anim-wave { stroke-dasharray: 8, 4; animation: waveFloat 6s ease-in-out infinite; }
+    .anim-entangle { animation: entanglementPulse 3s ease-in-out infinite; }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 transition-colors duration-500 antialiased min-h-screen selection:bg-teal-500 selection:text-white">
+<body class="bg-slate-50 text-slate-800 dark:bg-[#080b14] dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col items-center">
 
-  <!-- Background decorative ambient gradients -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-60 dark:opacity-30">
-    <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-cyan-300 dark:bg-cyan-700 blur-[120px]"></div>
-    <div class="absolute top-1/3 -right-40 w-96 h-96 rounded-full bg-violet-300 dark:bg-violet-800 blur-[130px]"></div>
-    <div class="absolute -bottom-20 left-1/4 w-96 h-96 rounded-full bg-teal-200 dark:bg-teal-900 blur-[120px]"></div>
-  </div>
+  <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/80 dark:bg-[#080b14]/80 border-b border-slate-200/60 dark:border-slate-800/80 transition-colors duration-300">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-end gap-3">
+      <!-- Share Button -->
+      <button 
+        id="shareBtn" 
+        type="button"
+        aria-label="Share article"
+        class="inline-flex items-center justify-center p-2.5 rounded-full text-slate-700 dark:text-slate-200 bg-slate-100/90 dark:bg-slate-800/90 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200 dark:border-slate-700 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+        </svg>
+      </button>
 
-  <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center gap-2">
-    <!-- Native Web Share / Copy Button -->
-    <button id="shareButton" aria-label="शेअर करा" class="p-2.5 sm:px-3 sm:py-2 rounded-full backdrop-blur-md bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 flex items-center gap-1.5 active:scale-95">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"></path>
-      </svg>
-      <span class="text-xs font-medium hidden sm:inline">शेअर</span>
-    </button>
-
-    <!-- Light/Dark Mode Switcher -->
-    <button id="themeToggle" aria-label="थीम बदला" class="p-2.5 sm:px-3 sm:py-2 rounded-full backdrop-blur-md bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-amber-500 dark:hover:text-amber-400 flex items-center gap-1.5 active:scale-95">
-      <!-- Sun Icon for Dark Mode -->
-      <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path>
-      </svg>
-      <!-- Moon Icon for Light Mode -->
-      <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"></path>
-      </svg>
-      <span id="themeLabel" class="text-xs font-medium hidden sm:inline">थीम</span>
-    </button>
-  </div>
+      <!-- Theme Toggle Button -->
+      <button 
+        id="themeToggleBtn" 
+        type="button"
+        aria-label="Toggle theme"
+        class="inline-flex items-center justify-center p-2.5 rounded-full text-slate-700 dark:text-slate-200 bg-slate-100/90 dark:bg-slate-800/90 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 hover:text-indigo-600 dark:hover:text-indigo-400 border border-slate-200 dark:border-slate-700 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      >
+        <!-- Sun Icon (shown in dark mode) -->
+        <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <!-- Moon Icon (shown in light mode) -->
+        <svg id="moonIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
 
   <!-- Notification Toast for fallback copy -->
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-4 py-2 rounded-full text-xs font-medium shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 z-50">
-    दुवा कॉपी केला गेला!
+  <div id="toast" class="fixed bottom-6 right-6 transform translate-y-20 opacity-0 transition-all duration-300 z-50 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-4 py-2.5 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+    </svg>
+    <span>लिंक कॉपी झाली आहे!</span>
   </div>
 
-  <main class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16">
-    <article class="bg-white/90 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/90 rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none p-6 sm:p-10 md:p-12 transition-all">
+  <main class="w-full max-w-3xl px-5 sm:px-8 py-8 sm:py-14 flex-1">
+    
+    <!-- Title -->
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-slate-50 leading-snug sm:leading-snug mb-8">
+      क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!
+    </h1>
 
-      <!-- Document Title (Centered) -->
-      <header class="text-center mb-6">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight mb-4">
-          क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!
-        </h1>
-        
-        <!-- Opening Epigraph (Centered) -->
-        <p class="text-base sm:text-lg italic text-teal-800 dark:text-teal-300 max-w-xl mx-auto font-medium">
-          ..आणि मग प्रकर्षाने जाणवत राहते ‘अनिश्चिततेचे तत्त्व’; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.
-        </p>
-      </header>
+    <div class="my-8 sm:my-10 w-full flex justify-center">
+      <div class="w-full max-w-md p-3 sm:p-5 rounded-2xl bg-gradient-to-b from-indigo-50/70 via-purple-50/40 to-white/70 dark:from-indigo-950/30 dark:via-purple-950/20 dark:to-slate-900/40 border border-indigo-100/80 dark:border-indigo-900/40 shadow-sm">
+        <svg viewBox="0 0 500 320" class="w-full h-auto overflow-visible select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Gradients -->
+            <radialGradient id="particleGradLeft" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="1"/>
+              <stop offset="60%" stop-color="#6366f1" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="particleGradRight" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f43f5e" stop-opacity="1"/>
+              <stop offset="60%" stop-color="#d946ef" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="entangleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="50%" stop-color="#a855f7"/>
+              <stop offset="100%" stop-color="#f43f5e"/>
+            </linearGradient>
+            <radialGradient id="coreMindGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#818cf8" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
 
-      <div class="my-8 sm:my-10 flex justify-center items-center w-full">
-        <div class="w-full max-w-lg aspect-[5/3] relative rounded-2xl overflow-hidden bg-gradient-to-br from-teal-50/70 via-cyan-50/50 to-violet-50/70 dark:from-slate-900/90 dark:via-[#0c1527] dark:to-[#171530] border border-teal-100 dark:border-slate-800/80 p-2 sm:p-4 shadow-inner">
-          <svg viewBox="0 0 600 360" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- Gradients for Orbits and Waves -->
-              <linearGradient id="gradWave" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.2" />
-                <stop offset="50%" stop-color="#8b5cf6" stop-opacity="0.9" />
-                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.3" />
-              </linearGradient>
+          <!-- Cosmic Background aura -->
+          <circle cx="250" cy="160" r="140" fill="url(#coreMindGlow)" class="anim-pulse-glow" />
 
-              <linearGradient id="entangleBridge" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#06b6d4" />
-                <stop offset="50%" stop-color="#ec4899" />
-                <stop offset="100%" stop-color="#8b5cf6" />
-              </linearGradient>
+          <!-- Superposition Probability Orbital Rings -->
+          <g class="anim-spin-slow">
+            <ellipse cx="250" cy="160" rx="190" ry="75" fill="none" stroke="#6366f1" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="6,6" transform="rotate(15, 250, 160)" />
+            <ellipse cx="250" cy="160" rx="190" ry="75" fill="none" stroke="#ec4899" stroke-opacity="0.2" stroke-width="1.5" stroke-dasharray="4,8" transform="rotate(-30, 250, 160)" />
+          </g>
+          <g class="anim-spin-reverse">
+            <ellipse cx="250" cy="160" rx="160" ry="90" fill="none" stroke="#06b6d4" stroke-opacity="0.22" stroke-width="1.2" stroke-dasharray="5,5" transform="rotate(65, 250, 160)" />
+          </g>
 
-              <radialGradient id="auraGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4" />
-                <stop offset="50%" stop-color="#818cf8" stop-opacity="0.18" />
-                <stop offset="100%" stop-color="#818cf8" stop-opacity="0" />
-              </radialGradient>
+          <!-- Wave-Particle Duality Sinusoidal Strands -->
+          <path d="M 50 160 Q 100 110, 150 160 T 250 160 T 350 160 T 450 160" fill="none" stroke="url(#entangleGlow)" stroke-width="1.8" class="anim-wave" opacity="0.65" />
+          <path d="M 50 160 Q 100 210, 150 160 T 250 160 T 350 160 T 450 160" fill="none" stroke="url(#entangleGlow)" stroke-width="1.8" class="anim-wave" opacity="0.45" />
 
-              <radialGradient id="particleGlowA" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#22d3ee" stop-opacity="1" />
-                <stop offset="70%" stop-color="#0891b2" stop-opacity="0.8" />
-                <stop offset="100%" stop-color="#0891b2" stop-opacity="0" />
-              </radialGradient>
+          <!-- Entanglement Link (Resonant Connection) -->
+          <path d="M 130 160 C 190 90, 310 230, 370 160" fill="none" stroke="url(#entangleGlow)" class="anim-entangle" filter="url(#glowEffect)" />
+          <path d="M 130 160 C 190 230, 310 90, 370 160" fill="none" stroke="url(#entangleGlow)" class="anim-entangle" opacity="0.5" />
 
-              <radialGradient id="particleGlowB" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#f472b6" stop-opacity="1" />
-                <stop offset="70%" stop-color="#c026d3" stop-opacity="0.8" />
-                <stop offset="100%" stop-color="#c026d3" stop-opacity="0" />
-              </radialGradient>
-            </defs>
+          <!-- Left Subatomic Particle (Superposition & Wave Observer) -->
+          <g transform="translate(130, 160)">
+            <circle cx="0" cy="0" r="32" fill="url(#particleGradLeft)" />
+            <circle cx="0" cy="0" r="14" fill="#38bdf8" filter="url(#glowEffect)" />
+            <circle cx="0" cy="0" r="7" fill="#ffffff" />
+            <!-- Little particle orbit -->
+            <ellipse cx="0" cy="0" rx="24" ry="10" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.6" transform="rotate(45)" />
+          </g>
 
-            <!-- Background Consciousness Halo -->
-            <circle cx="300" cy="180" r="140" fill="url(#auraGlow)" class="animate-pulse-gaze" />
+          <!-- Right Subatomic Particle (Entangled State & Mind Connection) -->
+          <g transform="translate(370, 160)">
+            <circle cx="0" cy="0" r="32" fill="url(#particleGradRight)" />
+            <circle cx="0" cy="0" r="14" fill="#f43f5e" filter="url(#glowEffect)" />
+            <circle cx="0" cy="0" r="7" fill="#ffffff" />
+            <!-- Little particle orbit -->
+            <ellipse cx="0" cy="0" rx="24" ry="10" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-opacity="0.6" transform="rotate(-45)" />
+          </g>
 
-            <!-- Subatomic Superposition Probability Wavefields -->
-            <ellipse cx="300" cy="180" rx="220" ry="85" fill="none" stroke="#38bdf8" stroke-opacity="0.25" stroke-width="1.5" stroke-dasharray="4 8" class="animate-orbit-cw" />
-            <ellipse cx="300" cy="180" rx="190" ry="75" fill="none" stroke="#c084fc" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="5 7" class="animate-orbit-ccw" />
-            <ellipse cx="300" cy="180" rx="160" ry="60" transform="rotate(-30 300 180)" fill="none" stroke="#2dd4bf" stroke-opacity="0.35" stroke-width="1.5" />
-
-            <!-- Entangled Waveform Connection -->
-            <path d="M 170 180 Q 230 110, 300 180 T 430 180" fill="none" stroke="url(#entangleBridge)" stroke-width="2.5" class="animate-wave-flow" />
-            <path d="M 170 180 Q 230 250, 300 180 T 430 180" fill="none" stroke="url(#entangleBridge)" stroke-width="1.5" stroke-opacity="0.6" class="animate-wave-flow" style="animation-direction: reverse;" />
-
-            <!-- Core Mind & Quantum Singularity Nodes -->
-            <g class="animate-float-1">
-              <!-- Left Particle (Observer / Self) -->
-              <circle cx="170" cy="180" r="24" fill="#06b6d4" fill-opacity="0.2" />
-              <circle cx="170" cy="180" r="13" fill="url(#particleGlowA)" />
-              <circle cx="170" cy="180" r="5" fill="#ffffff" />
-            </g>
-
-            <g class="animate-float-2">
-              <!-- Right Particle (Universe / Other Mind) -->
-              <circle cx="430" cy="180" r="24" fill="#ec4899" fill-opacity="0.2" />
-              <circle cx="430" cy="180" r="13" fill="url(#particleGlowB)" />
-              <circle cx="430" cy="180" r="5" fill="#ffffff" />
-            </g>
-
-            <!-- Center Consciousness & Observer Convergence -->
-            <g>
-              <circle cx="300" cy="180" r="7" fill="#f59e0b" />
-              <circle cx="300" cy="180" r="2" fill="#ffffff" />
-              <!-- Radiating Observation Rays -->
-              <line x1="300" y1="180" x2="170" y2="180" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 4" stroke-opacity="0.7" />
-              <line x1="300" y1="180" x2="430" y2="180" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 4" stroke-opacity="0.7" />
-            </g>
-
-            <!-- Floating Micro Particles (Quantum foam) -->
-            <circle cx="220" cy="120" r="3" fill="#38bdf8" opacity="0.6" class="animate-float-1" />
-            <circle cx="370" cy="240" r="3" fill="#f472b6" opacity="0.6" class="animate-float-2" />
-            <circle cx="270" cy="235" r="2" fill="#a78bfa" opacity="0.7" class="animate-float-1" />
-            <circle cx="340" cy="115" r="2.5" fill="#34d399" opacity="0.8" class="animate-float-2" />
-            <circle cx="120" cy="160" r="2" fill="#38bdf8" opacity="0.5" />
-            <circle cx="480" cy="200" r="2" fill="#f472b6" opacity="0.5" />
-          </svg>
-        </div>
+          <!-- Center Consciousness / Observer Focal Point -->
+          <g transform="translate(250, 160)">
+            <circle cx="0" cy="0" r="9" fill="#a855f7" filter="url(#glowEffect)" opacity="0.9" />
+            <circle cx="0" cy="0" r="4.5" fill="#ffffff" />
+            <circle cx="0" cy="0" r="18" fill="none" stroke="#c084fc" stroke-width="1" stroke-dasharray="3,3" class="anim-pulse-glow" />
+          </g>
+        </svg>
       </div>
+    </div>
 
-      <section class="space-y-5 text-slate-700 dark:text-slate-300 text-base sm:text-lg">
-        <p class="marathi-body">
-          ‘विश्व’ म्हणले आपल्या डोळ्यांसमोर अगदी लहानात लहान धुलिकणापासून ते सभोवताल व्यापून असलेल्या चराचराची प्रतिमा उभी राहते. इतकेच नव्हे, तर अशक्य अंतरावर असलेले ग्रह, तारे आणि अथांग आकाशगंगाही आपल्या मनःचक्षूंसमोर तरळू लागतात. हे सर्व आहे 'दिसणारे विश्व' म्हणजेच <em>‘Observable Universe’.</em>
-        </p>
+    <!-- Opening Quote / Thought -->
+    <p class="italic text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed text-justify-marathi mb-6">
+      ..आणि मग प्रकर्षाने जाणवत राहते ‘अनिश्चिततेचे तत्त्व’; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.
+    </p>
 
-        <p class="marathi-body">
-          या <em>Observable Universe</em> मधे असलेली नियमितता माणसाच्या लक्षात येऊ लागल्यावर ती सूत्रबद्ध करण्याच्या प्रयत्नातून आधुनिक भौतिकशास्त्राची प्रगती होत गेली. सर आयझॅक न्यूटन यांनी या संदर्भात महत्त्वाचे सिद्धांत मांडले आणि म्हणून या ‘दिसणाऱ्या विश्वाचा’ अभ्यास करणाऱ्या भौतिकशास्त्राला ‘न्यूटोनियन फिजिक्स’ असे संबोधले जाऊ लागले.
-        </p>
+    <div class="space-y-6 text-slate-800 dark:text-slate-200 text-base sm:text-lg leading-relaxed sm:leading-loose">
+      <p class="text-justify-marathi">
+        ‘विश्व’ म्हणले आपल्या डोळ्यांसमोर अगदी लहानात लहान धुलिकणापासून ते सभोवताल व्यापून असलेल्या चराचराची प्रतिमा उभी राहते. इतकेच नव्हे, तर अशक्य अंतरावर असलेले ग्रह, तारे आणि अथांग आकाशगंगाही आपल्या मनःचक्षूंसमोर तरळू लागतात. हे सर्व आहे 'दिसणारे विश्व' म्हणजेच <span class="italic">‘Observable Universe’.</span>
+      </p>
 
-        <p class="marathi-body">
-          अगदी ढोबळ मानाने सांगायचे तर विश्वातील प्रत्येक घटकाचे एका वेळी एकाच ठिकाणी असणारे अस्तित्व, त्याचे इतर घटकांशी असलेले नाते आणि या सगळ्याला एका गोलाकार स्थितीत गुंफून ठेवणारे गुरुत्वाकर्षण हा ‘न्यूटोनियन फिजिक्स’चा गाभा आहे असे म्हणता येईल. आपली सूर्यमाला हे याचे एक उत्तम उदाहरण म्हणून सांगता येते.
-        </p>
+      <p class="text-justify-marathi">
+        या <span class="italic">Observable Universe</span> मधे असलेली नियमितता माणसाच्या लक्षात येऊ लागल्यावर ती सूत्रबद्ध करण्याच्या प्रयत्नातून आधुनिक भौतिकशास्त्राची प्रगती होत गेली. सर आयझॅक न्यूटन यांनी या संदर्भात महत्त्वाचे सिद्धांत मांडले आणि म्हणून या ‘दिसणाऱ्या विश्वाचा’ अभ्यास करणाऱ्या भौतिकशास्त्राला ‘न्यूटोनियन फिजिक्स’ असे संबोधले जाऊ लागले.
+      </p>
 
-        <p class="marathi-body">
-          मानवाला चराचरातील सर्वात सूक्ष्म कणाबद्दल देखील प्रचंड उत्सुकता वाटत आलेली आहे. त्या कुतूहलापोटी झालेल्या अभ्यासातून विश्वातील सर्वात लहान घटक म्हणून 'अणू'ची संकल्पना उदयास आली. या ‘मूलभूत कणा’च्या रचनेचा सुरुवातीचा आराखडा ‘न्यूटोनियन फिजिक्स’च्या सिद्धांतांनुसार मांडला गेला; ज्यामध्ये सूर्यमालेप्रमाणे केंद्रस्थानी प्रोटॉन आणि न्यूट्रॉन व त्यांच्याभोवती ठराविक कक्षांमध्ये फिरणारे इलेक्ट्रॉन्स अशी अणूच्या रचनेची कल्पना केली गेली.
-        </p>
+      <p class="text-justify-marathi">
+        अगदी ढोबळ मानाने सांगायचे तर विश्वातील प्रत्येक घटकाचे एका वेळी एकाच ठिकाणी असणारे अस्तित्व, त्याचे इतर घटकांशी असलेले नाते आणि या सगळ्याला एका गोलाकार स्थितीत गुंफून ठेवणारे गुरुत्वाकर्षण हा ‘न्यूटोनियन फिजिक्स’चा गाभा आहे असे म्हणता येईल. आपली सूर्यमाला हे याचे एक उत्तम उदाहरण म्हणून सांगता येते.
+      </p>
 
-        <p class="marathi-body">
-          परंतु वैज्ञानिक प्रगतीच्या ओघात हे स्पष्ट होऊ लागले की आण्विक स्तरावरील या चिमुकल्या विश्वाचे नियम ‘न्यूटोनियन फिजिक्स’पेक्षा पूर्णपणे भिन्न आहेत. तेथील ‘सबअटॉमिक पार्टिकल्स’ काही वेगळेच वागतात. एकाच वेळी ते कणांसारखेही असतात आणि तरंगांसारखेही! सगळाच ‘लहरी’ कारभार आहे म्हणाना!
-        </p>
+      <p class="text-justify-marathi">
+        मानवाला चराचरातील सर्वात सूक्ष्म कणाबद्दल देखील प्रचंड उत्सुकता वाटत आलेली आहे. त्या कुतूहलापोटी झालेल्या अभ्यासातून विश्वातील सर्वात लहान घटक म्हणून 'अणू'ची संकल्पना उदयास आली. या ‘मूलभूत कणा’च्या रचनेचा सुरुवातीचा आराखडा ‘न्यूटोनियन फिजिक्स’च्या सिद्धांतांनुसार मांडला गेला; ज्यामध्ये सूर्यमालेप्रमाणे केंद्रस्थानी प्रोटॉन आणि न्यूट्रॉन व त्यांच्याभोवती ठराविक कक्षांमध्ये फिरणारे इलेक्ट्रॉन्स अशी अणूच्या रचनेची कल्पना केली गेली.
+      </p>
 
-        <p class="marathi-body">
-          क्वांटम फिजिक्स <em>(क्वांटम मेकॅनिक्स)</em> म्हणून ओळखले जाणारे हे शास्त्र याच ‘सबअटॉमिक पार्टिकल्स’च्या विश्वाचा आणि त्यांच्या गूढ हालचालींचा वेध घेते.
-        </p>
+      <p class="text-justify-marathi">
+        परंतु वैज्ञानिक प्रगतीच्या ओघात हे स्पष्ट होऊ लागले की आण्विक स्तरावरील या चिमुकल्या विश्वाचे नियम ‘न्यूटोनियन फिजिक्स’पेक्षा पूर्णपणे भिन्न आहेत. तेथील ‘सबअटॉमिक पार्टिकल्स’ काही वेगळेच वागतात. एकाच वेळी ते कणांसारखेही असतात आणि तरंगांसारखेही! याला म्हणतात <span class="italic">wave particle duality.</span> थोडक्यात सांगायचं तर सगळाच ‘लहरी’ कारभार आहे म्हणाना!
+      </p>
 
-        <p class="marathi-body">
-          या शास्त्रानुसार जेव्हा ‘सबअटॉमिक पार्टिकल्स’चे निरीक्षण केले जात असते त्यावेळची त्यांची वर्तणूक आणि निरीक्षण केले जात नसतानाचे वागणे यामध्ये अक्षरशः जमीन-अस्मानाचा फरक असतो! याला क्वांटम फिजिक्समध्ये <strong>‘ऑब्झर्व्हर इफेक्ट’</strong> म्हणून ओळखले जाते.
-        </p>
+      <p class="text-justify-marathi">
+        क्वांटम फिजिक्स <span class="italic">(क्वांटम मेकॅनिक्स)</span> म्हणून ओळखले जाणारे हे शास्त्र याच ‘सबअटॉमिक पार्टिकल्स’च्या विश्वाचा आणि त्यांच्या गूढ हालचालींचा वेध घेते.
+      </p>
 
-        <p class="marathi-body">
-          आता पार्टिकल अस्तित्वात तर असतो परंतु मोजला जातो तेव्हां एक वागतो आणि मोजला जात नसताना काही वेगळाच; हे प्रकरण ‘न्यूटोनियन फिजिक्स’मधे कुठेच बसत नाही. परंतु आण्विक विश्वात ते तसे असते हे प्रयोगाने जाणवते हे ही खरे; म्हणून मग पार्टिकल जेंव्हा <em>‘under observation नसतो त्या वेळेस कोणत्याही स्थितीत असू शकतो’</em> ही त्याची वैशिष्ट्यपूर्ण क्षमता म्हणजे <strong>‘सुपरपोझिशन’!</strong>
-        </p>
+      <p class="text-justify-marathi">
+        या शास्त्रानुसार जेव्हा ‘सबअटॉमिक पार्टिकल्स’चे निरीक्षण केले जात असते त्यावेळची त्यांची वर्तणूक आणि निरीक्षण केले जात नसतानाचे वागणे यामध्ये अक्षरशः जमीन-अस्मानाचा फरक असतो! याला क्वांटम फिजिक्समध्ये <span class="font-semibold text-slate-900 dark:text-white">‘ऑब्झर्व्हर इफेक्ट’</span> म्हणून ओळखले जाते.
+      </p>
 
-        <p class="marathi-body">
-          क्वांटम-भौतिकी प्रयोगांतून असेही जाणवले आहे की दोन विविक्षित सबअटॉमिक पार्टिकल्समधील अंतर कितीही अथांग असले तरी एकाच्या स्थितीत होणारा बदल दुसऱ्यावर लगेचच प्रभाव पाडतो. हा आगळावेगळा परस्परसंबंध म्हणजे <strong>‘एन्टँगलमेंट’!</strong> डॉ. अल्बर्ट आईन्स्टाइन यांनी उपरोधिकपणे याचे वर्णन <em>“दूरवरून घडणारी रहस्यमय कृती” (Spooky action at a distance)</em> असे केले होते.
-        </p>
+      <p class="text-justify-marathi">
+        आता पार्टिकल अस्तित्वात तर असतो परंतु मोजला जातो तेव्हां एक वागतो आणि मोजला जात नसताना काही वेगळाच; हे प्रकरण ‘न्यूटोनियन फिजिक्स’मधे कुठेच बसत नाही. परंतु आण्विक विश्वात ते तसे असते हे प्रयोगाने जाणवते हे ही खरे; म्हणून मग पार्टिकल जेंव्हा <span class="italic">‘under observation नसतो त्या वेळेस कोणत्याही स्थितीत असू शकतो’</span> ही त्याची वैशिष्ट्यपूर्ण क्षमता म्हणजे <span class="font-semibold text-slate-900 dark:text-white">‘सुपरपोझिशन’!</span>
+      </p>
 
-        <p class="marathi-body">
-          याशिवाय आपण कोणत्याही पार्टिकलची अचूक स्थिती आणि वेग एकाच वेळी मोजू शकत नाही. दोन्हीपैकी कोणतीही एक गोष्ट जितकी अचूकतेने मोजण्याचा प्रयत्न करू, तितकीच दुसरी गोष्ट जास्त अनिश्चित बनत जाते. याला <strong>‘हायझेनबर्गचे अनिश्चिततेचे तत्त्व’</strong> म्हणतात.
-        </p>
-      </section>
+      <p class="text-justify-marathi">
+        क्वांटम-भौतिकी प्रयोगांतून असेही जाणवले आहे की दोन विविक्षित सबअटॉमिक पार्टिकल्समधील अंतर कितीही अथांग असले तरी एकाच्या स्थितीत होणारा बदल दुसऱ्यावर लगेचच प्रभाव पाडतो. हा आगळावेगळा परस्परसंबंध म्हणजे <span class="font-semibold text-slate-900 dark:text-white">‘एन्टँगलमेंट’!</span> डॉ. अल्बर्ट आईन्स्टाइन यांनी उपरोधिकपणे याचे वर्णन <span class="italic">“दूरवरून घडणारी रहस्यमय कृती” (Spooky action at a distance)</span> असे केले होते.
+      </p>
 
-      <!-- Section Separator (Centered) -->
-      <div class="text-center my-8 text-xl sm:text-2xl text-teal-600/70 dark:text-teal-400/60 select-none tracking-widest">
+      <p class="text-justify-marathi">
+        याशिवाय आपण कोणत्याही पार्टिकलची अचूक स्थिती आणि वेग एकाच वेळी मोजू शकत नाही. दोन्हीपैकी कोणतीही एक गोष्ट जितकी अचूकतेने मोजण्याचा प्रयत्न करू, तितकीच दुसरी गोष्ट जास्त अनिश्चित बनत जाते. याला <span class="font-semibold text-slate-900 dark:text-white">‘हायझेनबर्गचे अनिश्चिततेचे तत्त्व’</span> म्हणतात.
+      </p>
+
+      <div class="text-center py-5 text-xl tracking-widest text-indigo-400 dark:text-indigo-500 select-none">
         ⭗⭗
       </div>
 
-      <section class="space-y-5 text-slate-700 dark:text-slate-300 text-base sm:text-lg">
-        <p class="marathi-body">
-          तुम्ही, मी आणि आपण सर्व नक्की कोण आहोत? सजीव आणि निर्जीव यांमध्ये नेमका काय फरक आहे? भावना, चेतना, पुनरुत्पादन आणि अनुभवांतून शिकण्याची सजीवांची क्षमता कोठून येते? ही कोडी सोडवणे जरी अवघड असले, तरी एक बाब मात्र सूर्यप्रकाशाइतकी स्वच्छ आहे - आपण सर्व आणि हे अथांग विश्व विविध मूलद्रव्यांच्या अब्जावधी ‘सबअटॉमिक पार्टिकल्स’च्या एका विलक्षण आणि गुंतागुंतीच्या पण वेगवेगळ्या रचनांच्या स्वरूपात एकत्र येण्याने साकारले गेले आहे!
-        </p>
+      <p class="text-justify-marathi">
+        तुम्ही, मी आणि आपण सर्व नक्की कोण आहोत? सजीव आणि निर्जीव यांमध्ये नेमका काय फरक आहे? भावना, चेतना, पुनरुत्पादन आणि अनुभवांतून शिकण्याची सजीवांची क्षमता कोठून येते? ही कोडी सोडवणे जरी अवघड असले, तरी एक बाब मात्र सूर्यप्रकाशाइतकी स्वच्छ आहे - आपण सर्व आणि हे अथांग विश्व विविध मूलद्रव्यांच्या अब्जावधी ‘सबअटॉमिक पार्टिकल्स’च्या एका विलक्षण आणि गुंतागुंतीच्या पण वेगवेगळ्या रचनांच्या स्वरूपात एकत्र येण्याने साकारले गेले आहे!
+      </p>
 
-        <p class="marathi-body">
-          हे वास्तव असले तरीही दैनंदिन व्यवहारातील आपल्या अस्तित्वाला मात्र ‘न्यूटोनियन फिजिक्स’चेच नियम लागू पडताना दिसतात. आपण सर्व प्रत्यक्षात सबअटॉमिक पार्टिकल्सद्वारेच बनलेलो असलो, तरी आपल्या रोजच्या वर्तनामध्ये ‘सुपरपोझिशन’ किंवा ‘एन्टँगलमेंट’ अनुभवायला मिळत नाहीत!
-        </p>
-      </section>
+      <p class="text-justify-marathi">
+        हे वास्तव असले तरीही दैनंदिन व्यवहारातील आपल्या अस्तित्वाला मात्र ‘न्यूटोनियन फिजिक्स’चेच नियम लागू पडताना दिसतात. आपण सर्व प्रत्यक्षात सबअटॉमिक पार्टिकल्सद्वारेच बनलेलो असलो, तरी आपल्या रोजच्या वर्तनामध्ये ‘सुपरपोझिशन’ किंवा ‘एन्टँगलमेंट’ अनुभवायला मिळत नाहीत!
+      </p>
 
-      <!-- Section Separator (Centered) -->
-      <div class="text-center my-8 text-xl sm:text-2xl text-teal-600/70 dark:text-teal-400/60 select-none tracking-widest">
+      <div class="text-center py-5 text-xl tracking-widest text-indigo-400 dark:text-indigo-500 select-none">
         ⭗⭗
       </div>
 
-      <section class="space-y-5 text-slate-700 dark:text-slate-300 text-base sm:text-lg">
-        <p class="marathi-body">
-          परंतु एका वेगळ्या दृष्टिकोनातून जेव्हा आपण <em>'क्वांटम मेकॅनिक्स' आणि 'मानसिक स्वास्थ्यासाठी केले जाणारे सजग प्रयत्न'</em> यांचा एकत्रित विचार करतो, तेव्हा त्यांच्यातील काही आगळ्यावेगळ्या, ‘न्यूटोनियन फिजिक्स’नुसार अतर्क्य वाटणाऱ्या संबंधांची नक्कीच अनुभूती येते.
-        </p>
+      <p class="text-justify-marathi">
+        परंतु एका वेगळ्या दृष्टिकोनातून जेव्हा आपण <span class="italic">'क्वांटम मेकॅनिक्स' आणि 'मानसिक स्वास्थ्यासाठी केले जाणारे सजग प्रयत्न'</span> यांचा एकत्रित विचार करतो, तेव्हा त्यांच्यातील काही आगळ्यावेगळ्या, ‘न्यूटोनियन फिजिक्स’नुसार अतर्क्य वाटणाऱ्या संबंधांची नक्कीच अनुभूती येते.
+      </p>
 
-        <p class="marathi-body">
-          आता हेच पहा ना, जेव्हां आपण वर्तमानातील काही गोष्टींकडे जाणीवपूर्वक लक्ष देतो त्याच पुढे आपल्या अनुभवांचा पाया ठरतात. म्हणजेच, आयुष्यातील सकारात्मक बाबींचे ‘जागरूक निरीक्षण’ केल्यास आपल्या मानसिक स्थितीत आमूलाग्र बदल होऊ शकतो. उदाहरणार्थ, ‘जे आहे त्याप्रति’ कृतज्ञ राहण्याची वृत्ती जोपासली तर आपल्या विचारात आणि कृतींमध्ये कमालीची सकारात्मकता निर्माण होते. अनुभवास येते.
-        </p>
+      <p class="text-justify-marathi">
+        आता हेच पहा ना, जेव्हां आपण वर्तमानातील काही गोष्टींकडे जाणीवपूर्वक लक्ष देतो त्याच पुढे आपल्या अनुभवांचा पाया ठरतात. म्हणजेच, आयुष्यातील सकारात्मक बाबींचे ‘जागरूक निरीक्षण’ केल्यास आपल्या मानसिक स्थितीत आमूलाग्र बदल होऊ शकतो. उदाहरणार्थ, ‘जे आहे त्याप्रति’ कृतज्ञ राहण्याची वृत्ती जोपासली तर आपल्या विचारात आणि कृतींमध्ये कमालीची सकारात्मकता निर्माण होते. अनुभवास येते.
+      </p>
 
-        <p class="marathi-body font-medium text-slate-900 dark:text-slate-100">
-          हा तर <strong>‘ऑब्झर्व्हर इफेक्ट’</strong> आहे!
-        </p>
+      <p class="text-justify-marathi">
+        हा तर <span class="font-semibold text-slate-900 dark:text-white">‘ऑब्झर्व्हर इफेक्ट’</span> आहे!
+      </p>
 
-        <p class="marathi-body">
-          मानवी भावना आणि नातेसंबंध हे फक्त <em>cause & effect</em> पुरते मर्यादित नसून ते जणू एका अदृश्य शृंखलेने जोडलेले असावेत याचीही आपल्याला वरचेवर प्रचिती येत असते.
-        </p>
+      <p class="text-justify-marathi">
+        मानवी भावना आणि नातेसंबंध हे फक्त <span class="italic">cause & effect</span> पुरते मर्यादित नसून ते जणू एका अदृश्य शृंखलेने जोडलेले असावेत याचीही आपल्याला वरचेवर प्रचिती येत असते.
+      </p>
 
-        <p class="marathi-body">
-          दैनंदिन जीवनात काही व्यक्तींचे फक्त प्रत्यक्षातच नव्हे तर मनात देखील नुसते ‘असणे’ हे भवतालची ऊर्जा वाढवते, तर क्वचित प्रसंगी एखाद्याच्या केवळ ‘येण्याने’ सर्वत्र निरुत्साह पसरतो!
-        </p>
+      <p class="text-justify-marathi">
+        दैनंदिन जीवनात काही व्यक्तींचे फक्त प्रत्यक्षातच नव्हे तर मनात देखील नुसते ‘असणे’ हे भवतालची ऊर्जा वाढवते, तर क्वचित प्रसंगी एखाद्याच्या केवळ ‘येण्याने’ सर्वत्र निरुत्साह पसरतो!
+      </p>
 
-        <p class="marathi-body">
-          सुहृदाने पाठीवर दिलेली हलकीशी आश्वासक थाप किंवा एखादा आश्वस्त करणारा फोन कॉल देखील ‘आल इज वेल’ म्हणत शब्दांच्या पलीकडे जाऊन नाते दृढ करतो, मनाला उभारी देतो; लहानपणी ऐकलेल्या <em>‘आलामंतर कोलामंतर . . . . ’</em> सारखे काहीतरी होते आणि समस्या क्षणात <strong>अनटॅंगल</strong> होतात!!
-        </p>
+      <p class="text-justify-marathi">
+        सुहृदाने पाठीवर दिलेली हलकीशी आश्वासक थाप किंवा एखादा आश्वस्त करणारा फोन कॉल देखील ‘आल इज वेल’ म्हणत शब्दांच्या पलीकडे जाऊन नाते दृढ करतो, मनाला उभारी देतो; लहानपणी ऐकलेल्या <span class="italic">‘आलामंतर कोलामंतर . . . . ’</span> सारखे काहीतरी होते आणि समस्या क्षणात <span class="font-semibold text-slate-900 dark:text-white">अनटॅंगल</span> होतात!!
+      </p>
 
-        <p class="marathi-body">
-          सर्वांना कधी ना कधी आलेले यासारखे अनुभव म्हणजे दुसरे तिसरे काही नसून त्या त्या वेळेस होणाऱ्या वेगवेगळ्या <strong>‘एन्टँगलमेंट्स’</strong> असतात!
-        </p>
+      <p class="text-justify-marathi">
+        सर्वांना कधी ना कधी आलेले यासारखे अनुभव म्हणजे दुसरे तिसरे काही नसून त्या त्या वेळेस होणाऱ्या वेगवेगळ्या <span class="font-semibold text-slate-900 dark:text-white">‘एन्टँगलमेंट्स’</span> असतात!
+      </p>
 
-        <p class="marathi-body">
-          विचारांत लवचिकता ठेवून वेगवेगळ्या परस्पर विरोधी भावनांचा एकाच वेळी स्वीकार करणे, म्हणजेच मानसिक <strong>‘सुपरपोझिशनमधे’</strong> राहण्याचा जाणीवपूर्वक प्रयत्न करत राहिले की एकांगी विचार न करता एकाच वेळेस अनेक दृष्टिकोन स्वीकारण्याची क्षमता आपोआप अंगी रुजते. ही सवय व्यक्तीला मानसिकदृष्ट्या अधिक सक्षम आणि खंबीर बनवते.
-        </p>
+      <p class="text-justify-marathi">
+        विचारांत लवचिकता ठेवून वेगवेगळ्या परस्पर विरोधी भावनांचा एकाच वेळी स्वीकार करणे, म्हणजेच मानसिक <span class="font-semibold text-slate-900 dark:text-white">‘सुपरपोझिशनमधे’</span> राहण्याचा जाणीवपूर्वक प्रयत्न करत राहिले की एकांगी विचार न करता एकाच वेळेस अनेक दृष्टिकोन स्वीकारण्याची क्षमता आपोआप अंगी रुजते. ही सवय व्यक्तीला मानसिकदृष्ट्या अधिक सक्षम आणि खंबीर बनवते.
+      </p>
 
-        <p class="marathi-body">
-          जेव्हा आपण अहंकार व दुराभिमानाचा त्याग करून जीवनात स्वाभाविकपणे येणाऱ्या चढ-उतारांचा मोकळेपणाने स्वीकार करतो तेव्हा आपल्यातील सृजनशीलता आणि संकटांवर मात करण्याची आंतरिक शक्ती कमालीची विकसित होते. आयुष्यात येणाऱ्या चढ-उतारांची ही अपरिहार्य अनिश्चितता मान्य करणे म्हणजेच वेर्नर हायझेनबर्ग यांचे म्हणणे ऐकून <strong>‘अनिश्चिततेच्या तत्त्वा’</strong>चा स्वीकार करणे!
-        </p>
-      </section>
+      <p class="text-justify-marathi">
+        जेव्हा आपण अहंकार व दुराभिमानाचा त्याग करून जीवनात स्वाभाविकपणे येणाऱ्या चढ-उतारांचा मोकळेपणाने स्वीकार करतो तेव्हा आपल्यातील सृजनशीलता आणि संकटांवर मात करण्याची आंतरिक शक्ती कमालीची विकसित होते. आयुष्यात येणाऱ्या चढ-उतारांची ही अपरिहार्य अनिश्चितता मान्य करणे म्हणजेच वेर्नर हायझेनबर्ग यांचे म्हणणे ऐकून <span class="font-semibold text-slate-900 dark:text-white">‘अनिश्चिततेच्या तत्त्वा’</span>चा स्वीकार करणे!
+      </p>
 
-      <!-- Section Separator (Centered) -->
-      <div class="text-center my-8 text-xl sm:text-2xl text-teal-600/70 dark:text-teal-400/60 select-none tracking-widest">
+      <div class="text-center py-5 text-xl tracking-widest text-indigo-400 dark:text-indigo-500 select-none">
         ⭗⭗
       </div>
 
-      <section class="space-y-5 text-slate-700 dark:text-slate-300 text-base sm:text-lg">
-        <p class="marathi-body">
-          तुम्ही, मी, आपण सर्व आणि हे ब्रह्मांड अब्जावधी सबअटॉमिक पार्टिकल्सच्या एकाच वेळेस सूत्रबद्ध पण वेगवेगळ्या रचनांमध्ये एकत्र येण्याने बनले आहे हे खरे आहे. आपल्याला जे दिसते त्याचे ‘न्यूटोनियन फिजिक्स’चे नियम लावून वर्णनही करता येते. पण अंतरंगात असलेले ते सबअटॉमिक पार्टिकल्स! ते त्यांचा ‘लहरीपणा’ टिकवून आहेतच.
-        </p>
+      <p class="text-justify-marathi">
+        तुम्ही, मी, आपण सर्व आणि हे ब्रह्मांड अब्जावधी सबअटॉमिक पार्टिकल्सच्या एकाच वेळेस सूत्रबद्ध पण वेगवेगळ्या रचनांमध्ये एकत्र येण्याने बनले आहे हे खरे आहे. आपल्याला जे दिसते त्याचे ‘न्यूटोनियन फिजिक्स’चे नियम लावून वर्णनही करता येते. पण अंतरंगात असलेले ते सबअटॉमिक पार्टिकल्स! ते त्यांचा ‘लहरीपणा’ टिकवून आहेतच.
+      </p>
 
-        <p class="marathi-body">
-          मनाच्या अंतरंगात खोल कुठेतरी ते त्यांच्या ‘सुपरपोझिशन्स’मधे फिरत असतात. त्यांच्यात होणाऱ्या ‘एन्टँगलमेंट्स’ भावनांच्या हिंदोळ्यांना जन्म देत राहतात आणि मग प्रकर्षाने जाणवत राहते ते म्हणजे अनिश्चिततेचे तत्त्व; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.
-        </p>
+      <p class="text-justify-marathi">
+        मनाच्या अंतरंगात खोल कुठेतरी ते त्यांच्या ‘सुपरपोझिशन्स’मधे फिरत असतात. त्यांच्यात होणाऱ्या ‘एन्टँगलमेंट्स’ भावनांच्या हिंदोळ्यांना जन्म देत राहतात आणि मग प्रकर्षाने जाणवत राहते ते म्हणजे अनिश्चिततेचे तत्त्व; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.
+      </p>
 
-        <p class="marathi-body">
-          अशा वेळेस विचार ‘अनटॅंगल’ करून मनःशांती मिळवायला कामी येतो मनोमन कृतज्ञ राहण्याचा ‘ऑब्झर्व्हर इफेक्ट’!!
-        </p>
+      <p class="text-justify-marathi">
+        अशा वेळेस विचार ‘अनटॅंगल’ करून मनःशांती मिळवायला कामी येतो मनोमन कृतज्ञ राहण्याचा ‘ऑब्झर्व्हर इफेक्ट’!!
+      </p>
 
-        <!-- Sant Tukaram Quote (Centered) -->
-        <div class="text-center py-4 my-2">
-          <p class="text-lg sm:text-xl font-medium italic text-teal-800 dark:text-teal-300 leading-relaxed">
-            तुका म्हणे उगी रहावे, जे जे होईल ते पहावे, चित्ती असो द्यावे; समाधान!
-          </p>
-        </div>
+      <!-- Tukaram Maharaj Abhanga Line -->
+      <p class="italic text-justify-marathi sm:text-center text-slate-900 dark:text-slate-100 font-medium pt-2">
+        तुका म्हणे उगी रहावे, जे जे होईल ते पहावे, चित्ती असो द्यावे; समाधान!
+      </p>
 
-        <!-- Date (Centered) -->
-        <p class="text-center text-sm sm:text-base font-medium tracking-wider text-slate-500 dark:text-slate-400">
-          २०२६०७३०
-        </p>
+      <!-- Date -->
+      <p class="text-center font-medium text-slate-500 dark:text-slate-400 pt-3">
+        २०२६०७३०
+      </p>
 
-        <!-- AI Podcast Note (Centered) -->
-        <p class="text-center text-sm sm:text-base italic text-slate-600 dark:text-slate-400 pt-2">
+      <div class="pt-4 flex flex-col items-center">
+        <p class="italic text-center text-slate-600 dark:text-slate-300 mb-4">
           या निबंधावरून केलेला ए-आय निर्मित पॉडकास्ट ऐकण्यासाठी
         </p>
 
-        <!-- SoundCloud Link (Centered) -->
-        <div class="text-center pt-1 pb-3">
-          <a href="https://on.soundcloud.com/MkiNW220QfAN1v00Jr" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base group">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M1.175 12.225c-.068 0-.131.053-.14.123l-.337 3.328c-.01.074.048.139.123.144l.354.004c.07 0 .127-.057.135-.127l.337-3.328c.01-.07-.048-.135-.123-.14l-.349-.004zm1.535-.873c-.08 0-.149.061-.158.144l-.45 4.195c-.009.083.053.153.136.158l.424.005c.08 0 .144-.066.153-.149l.45-4.195c.009-.083-.052-.153-.135-.158l-.42-.005zm1.61-.703c-.092 0-.17.07-.18.166l-.525 4.903c-.01.096.061.179.157.184l.49.005c.092 0 .166-.074.175-.17l.525-4.903c.01-.096-.061-.179-.157-.184l-.485-.006zm1.688-.415c-.105 0-.192.083-.201.192l-.581 5.321c-.01.105.07.196.175.201l.555.005c.105 0 .188-.083.197-.192l.58-5.321c.01-.105-.07-.197-.174-.202l-.551-.004zm1.768-.144c-.118 0-.214.092-.223.214l-.629 5.465c-.009.118.079.219.197.223l.625.004c.118 0 .21-.092.219-.214l.629-5.465c.009-.118-.079-.219-.197-.223l-.621-.004zm1.847-.07c-.131 0-.236.105-.245.24l-.664 5.535c-.01.131.087.245.218.249l.69.005c.131 0 .236-.105.245-.24l.664-5.535c.01-.131-.087-.245-.219-.249l-.689-.005zm1.925.336c-.144 0-.258.118-.267.266l-.682 5.204c-.01.144.096.266.24.271l.756.004c.144 0 .258-.118.267-.266l.682-5.204c.009-.144-.096-.267-.24-.271l-.756-.004zm8.647-4.66c-.341 0-.668.057-.978.157-.476-2.223-2.45-3.896-4.821-3.896-.751 0-1.463.166-2.105.467-.14.066-.214.218-.179.371l.59 5.565c.013.127.118.223.245.223h7.248c1.93 0 3.5-1.57 3.5-3.5s-1.57-3.387-3.5-3.387z" />
-            </svg>
-            <span>SoundCloud Link</span>
-          </a>
-        </div>
-      </section>
+        <a 
+          href="https://on.soundcloud.com/MkiNW220QfAN1v00Jr" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-medium shadow-md hover:shadow-lg hover:from-orange-600 hover:to-amber-600 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <!-- Audio wave sound icon -->
+          <svg class="w-6 h-6 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+          <span class="tracking-wide">SoundCloud वर ऐका</span>
+          <svg class="w-4 h-4 opacity-80 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+      </div>
 
-      <!-- Section Closing Symbol (Centered) -->
-      <footer class="text-center mt-6 text-xl sm:text-2xl text-teal-600/70 dark:text-teal-400/60 select-none tracking-widest">
+      <div class="text-center pt-8 pb-4 text-xl tracking-widest text-indigo-400 dark:text-indigo-500 select-none">
         ⭗⭗⭗
-      </footer>
-
-    </article>
+      </div>
+    </div>
   </main>
 
   <script>
-    (function initInteractiveFeatures() {
-      // Theme State Management
-      const themeToggleBtn = document.getElementById('themeToggle');
-      const root = document.documentElement;
+    // Theme Management
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
 
-      // Check system preference or saved localStorage
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        root.classList.add('dark');
+    function applyTheme(isDark) {
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
       } else {
-        root.classList.remove('dark');
+        document.documentElement.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
       }
+    }
 
-      themeToggleBtn.addEventListener('click', () => {
-        const isDark = root.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      });
+    // Determine initial theme
+    const storedTheme = localStorage.getItem('user-theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialDark = storedTheme === 'dark' || (!storedTheme && systemPrefersDark);
+    applyTheme(initialDark);
 
-      // Share Logic with Fallback
-      const shareBtn = document.getElementById('shareButton');
-      const toast = document.getElementById('toast');
+    // Toggle handler
+    themeToggleBtn.addEventListener('click', () => {
+      const isCurrentlyDark = document.documentElement.classList.contains('dark');
+      const nextThemeDark = !isCurrentlyDark;
+      applyTheme(nextThemeDark);
+      localStorage.setItem('user-theme', nextThemeDark ? 'dark' : 'light');
+    });
 
-      function showToast(message) {
-        toast.textContent = message;
-        toast.classList.remove('opacity-0', 'pointer-events-none');
-        toast.classList.add('opacity-100');
-        setTimeout(() => {
-          toast.classList.remove('opacity-100');
-          toast.classList.add('opacity-0', 'pointer-events-none');
-        }, 2200);
-      }
+    // Share & Clipboard Management
+    const shareBtn = document.getElementById('shareBtn');
+    const toast = document.getElementById('toast');
 
-      shareBtn.addEventListener('click', async () => {
-        const shareData = {
-          title: 'क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!',
-          text: 'क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य - हा विचारप्रवृत्त करणारा लेख वाचा.',
-          url: window.location.href
-        };
+    function showToast() {
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
 
-        if (navigator.share) {
-          try {
-            await navigator.share(shareData);
-          } catch (err) {
-            // Cancelled or unsupported share target
-          }
-        } else {
-          // Fallback copy
-          const dummy = document.createElement('input');
-          document.body.appendChild(dummy);
-          dummy.value = window.location.href;
-          dummy.select();
-          try {
-            document.execCommand('copy');
-            showToast('दुवा कॉपी केला गेला!');
-          } catch (e) {
-            showToast('कृपया URL कॉपी करा');
-          }
-          document.body.removeChild(dummy);
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: 'क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!',
+        text: 'क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य! - ..आणि मग प्रकर्षाने जाणवत राहते ‘अनिश्चिततेचे तत्त्व’',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          // Fallback if user cancels or share fails
+          copyToClipboard();
         }
-      });
-    })();
+      } else {
+        copyToClipboard();
+      }
+    });
+
+    function copyToClipboard() {
+      const dummyInput = document.createElement('input');
+      dummyInput.setAttribute('value', window.location.href);
+      document.body.appendChild(dummyInput);
+      dummyInput.select();
+      try {
+        document.execCommand('copy');
+        showToast();
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(dummyInput);
+    }
   </script>
 </body>
 </html>
