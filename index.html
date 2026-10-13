@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!</title>
 
-  <!-- Google Fonts: IBM Plex Sans & IBM Plex Sans Devanagari -->
+  <!-- Google Fonts: IBM Plex Sans Devanagari, IBM Plex Sans & Ubuntu -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -29,6 +29,11 @@
       --podcast-btn-text: #ffffff;
       --podcast-btn-hover: #0369a1;
       --podcast-btn-shadow: 0 4px 14px rgba(2, 132, 199, 0.28);
+      --share-btn-bg: #0f172a;
+      --share-btn-text: #ffffff;
+      --share-btn-border: #0f172a;
+      --share-btn-hover: #1e293b;
+      --share-btn-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
     }
 
     [data-theme="dark"] {
@@ -49,6 +54,11 @@
       --podcast-btn-text: #0f172a;
       --podcast-btn-hover: #7dd3fc;
       --podcast-btn-shadow: 0 4px 16px rgba(56, 189, 248, 0.25);
+      --share-btn-bg: #38bdf8;
+      --share-btn-text: #0f172a;
+      --share-btn-border: #38bdf8;
+      --share-btn-hover: #7dd3fc;
+      --share-btn-shadow: 0 4px 16px rgba(56, 189, 248, 0.25);
     }
 
     * {
@@ -58,11 +68,11 @@
     }
 
     body {
-      font-family: "IBM Plex Sans Devanagari", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Ubuntu", "IBM Plex Sans Devanagari", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      line-height: 1.85;
-      font-size: 1.12rem;
+      line-height: 1.9;
+      font-size: 1.25rem;
       transition: background-color 0.3s ease, color 0.3s ease;
       word-break: keep-all;
       overflow-wrap: break-word;
@@ -147,8 +157,8 @@
         border-radius: 12px;
       }
       body {
-        font-size: 1.05rem;
-        line-height: 1.78;
+        font-size: 1.175rem;
+        line-height: 1.9;
       }
     }
 
@@ -219,7 +229,7 @@
     /* Typography & Document Formatting */
     .doc-title {
       font-size: 1.95rem;
-      font-weight: 700;
+      font-weight: 400;
       color: var(--primary-accent);
       text-align: center;
       line-height: 1.35;
@@ -230,7 +240,7 @@
     .doc-subhead {
       font-size: 1.15rem;
       text-align: center;
-      font-weight: 500;
+      font-weight: 400;
       color: var(--text-muted);
       margin-bottom: 2.2rem;
       padding: 0 0.5rem;
@@ -343,6 +353,58 @@
       flex-shrink: 0;
     }
 
+    /* Bottom Share Section */
+    .bottom-share-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2.2rem auto 0.8rem auto;
+      width: 100%;
+    }
+
+    .page-share-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      background-color: var(--share-btn-bg);
+      color: var(--share-btn-text);
+      border: 1px solid var(--share-btn-border);
+      border-radius: 9999px;
+      padding: 0.8rem 2rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: var(--share-btn-shadow);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .page-share-btn:hover {
+      background-color: var(--share-btn-hover);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.28);
+    }
+
+    .page-share-btn:active {
+      transform: translateY(0) scale(0.99);
+    }
+
+    .page-share-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -374,7 +436,7 @@
 </head>
 <body>
 
-  <!-- Controls: Theme Toggle & Share Button -->
+  <!-- Controls: Theme Toggle Only at Top -->
   <header class="top-controls">
     <div class="top-controls-inner">
       <button id="themeToggleBtn" class="action-btn" type="button" aria-label="थीम बदला">
@@ -383,17 +445,6 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
         <span id="themeBtnText">डार्क मोड</span>
-      </button>
-
-      <button id="shareBtn" class="action-btn" type="button" aria-label="लेख शेअर करा">
-        <svg viewBox="0 0 24 24">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
-        <span>शेअर करा</span>
       </button>
     </div>
   </header>
@@ -458,7 +509,7 @@
       </svg>
     </div>
 
-    <!-- Title and Subhead -->
+    <!-- Title and Subhead (Headings without bold formatting) -->
     <h1 class="doc-title">क्वांटम एन्टँगलमेंट आणि मानसिक स्वास्थ्य!</h1>
     <div class="doc-subhead">..आणि मग प्रकर्षाने जाणवत राहते ‘अनिश्चिततेचे तत्त्व’; हायझेनबर्गचे, तुमचे, माझे आणि या अथांगाचे.</div>
 
@@ -528,7 +579,7 @@
         या निबंधावरून केलेला ए-आय निर्मित पॉडकास्ट ऐकण्यासाठी
       </div>
 
-      <!-- Prominent, properly styled Podcast Audio Button -->
+      <!-- Prominent Podcast Audio Button -->
       <div class="podcast-action-wrapper">
         <a href="https://u2l.ai/Quantum" class="podcast-listen-btn" target="_blank" rel="noopener noreferrer" aria-label="पॉडकास्ट ऐका">
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -539,6 +590,21 @@
       </div>
 
       <div class="symbol-divider">⭗⭗⭗</div>
+
+      <!-- Bottom Share Button: Styled with high visibility -->
+      <div class="bottom-share-wrapper">
+        <button id="shareBtn" class="page-share-btn" type="button" aria-label="लेख शेअर करा">
+          <svg viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          <span>शेअर करा</span>
+        </button>
+      </div>
+
     </div>
   </main>
 
